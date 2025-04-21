@@ -1,5 +1,4 @@
 //different type of alloc
-
 const { Buffer } = require("buffer");
 
 //1) .alloc() :  // Creates a 10-byte buffer initialized with zeros

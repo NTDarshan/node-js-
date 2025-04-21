@@ -1,16 +1,10 @@
-//Buffers
-// Buffers are used to store binary data
-// Buffers are immutable, meaning once created, they cannot be changed
-// Buffers are similar to arrays, but they are not the same
+//Buffers are used to store binary data
 // Buffers are used to store binary data, such as images, audio files, etc.
-
-// Fix: Use Buffer directly (it's global) or import correctly
 const Buffer = require("buffer").Buffer;
 // Alternatively: const { Buffer } = require("buffer");
 
 // Creating a buffer using the Buffer constructor
 const memoryContainer = Buffer.alloc(4); // Allocates 8 bytes of memory
-
 // //assigning the values to the buffer
 memoryContainer[0] = 1;
 memoryContainer[1] = 2;
@@ -23,6 +17,8 @@ console.log(memoryContainer[2]); // Output: 3
 console.log(memoryContainer[3]); // Output: 4
 
 console.log(memoryContainer); // Output: <Buffer 01 02 03 04>
+
+//character encoding 
 console.log(memoryContainer.toString("hex")); // Output: 01020304
 
 const Buff = Buffer.from([0x48, 0xce, 0x13, 0x7f]); // 32 bits / 8 =>  Allocates 4 bytes of memory
