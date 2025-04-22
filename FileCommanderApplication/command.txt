@@ -1,1 +1,1 @@
-create a file text.txt
+Add to the file new.txt this content: this is the new content added 

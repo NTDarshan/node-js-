@@ -13,7 +13,44 @@ const fs = require("fs/promises");
       return console.log("File created");
     }
   };
+
+  const deleteFile = async (path) => {
+    try {
+      const existingFile = await fs.open(path, "r");
+      existingFile.close();
+      await fs.unlink(path);
+      return console.log("File deleted");
+    } catch (error) {
+      return console.log("File does not exist");
+    }
+  };
+
+  const renameFile = async (oldPath, newPath) => {
+    try {
+      const existingFile = await fs.open(oldPath, "r");
+      existingFile.close();
+      await fs.rename(oldPath, newPath);
+      return console.log("File renamed");
+    } catch (error) {
+      return console.log("File does not exist");
+    }
+  };
+
+  const addToFile = async (path, content) => {
+    try {
+      const existingFile = await fs.open(path, "r");
+      existingFile.close();
+      await fs.appendFile(path, content);
+      return console.log("Content added to file");
+    } catch (error) {
+      return console.log("File does not exist");
+    }
+  };
+
   const FILE_CREATE = "create a file";
+  const FILE_DELETE = "delete the file";
+  const FILE_RENAME = "rename the file";
+  const FILE_CONTENT = "Add to the file";
   // Open the command file for reading operations
   // This creates a file handle that we can use for multiple operations
   const commandFileHandler = await fs.open("./command.txt", "r");
@@ -53,6 +90,19 @@ const fs = require("fs/promises");
     if (command.includes(FILE_CREATE)) {
       const filePath = command.substring(FILE_CREATE.length + 1).trim();
       await createFile(filePath);
+    } else if (command.includes(FILE_DELETE)) {
+      const filePath = command.substring(FILE_DELETE.length + 1).trim();
+      await deleteFile(filePath);
+    } else if (command.includes(FILE_RENAME)) {
+      const index = command.indexOf(" to ");
+      const oldPath = command.substring(FILE_RENAME.length + 1, index).trim();
+      const newPath = command.substring(index + 4).trim();
+      await renameFile(oldPath, newPath);
+    } else if (command.includes(FILE_CONTENT)) {
+      const index = command.indexOf(" this content: ");
+      const filePath = command.substring(FILE_CONTENT.length + 1, index).trim();
+      const content = command.substring(index + 18).trim();
+      await addToFile(filePath, content);
     }
   });
 
