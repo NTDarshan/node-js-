@@ -58,21 +58,16 @@ const fs = require("fs/promises");
   commandFileHandler.on("change", async () => {
     // Get the current size of the file to allocate appropriate buffer
     const { size } = await commandFileHandler.stat();
-
     // Define the starting position in the buffer where data will be written
     const offset = 0;
-
     // Create a buffer with size equal to the file size to store file contents
     const buff = Buffer.alloc(size);
-
     // Define how many bytes to read from the file
     const length = buff.byteLength;
-
     // Define the position in the file from where to start reading
     // Note: Using 'length' here means starting at the end of file, which may not read any data
     // Consider using position = 0 to read from the beginning of the file
     const position = 0;
-
     // Read the file content into the buffer
     // This returns an object with bytesRead and buffer properties
     await commandFileHandler.read(
@@ -81,7 +76,6 @@ const fs = require("fs/promises");
       length, // Number of bytes to read
       position // Position in the file to start reading from
     );
-
     // Log the result of the read operation
     // Note: This logs the read operation result object, not the actual file content
     // To see the file content, use: console.log(buff.toString())
@@ -105,7 +99,6 @@ const fs = require("fs/promises");
       await addToFile(filePath, content);
     }
   });
-
   // Create a watcher to monitor changes to the command.txt file
   // This will emit events whenever the file is modified
   const watcher = fs.watch("./command.txt");
